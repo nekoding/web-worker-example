@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web worker example</title>
+
+    <style>
+
+        * {
+          margin: 0;
+          padding: 0;  
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+        }
+
+        p#warna {
+            width: 100%;
+            padding: 20px 0;
+        }
+
+        .mb {
+            margin-top: 20px;
+            margin-bottom: 40px;
+        }
+
+        .container {
+            margin-left: 2rem;
+            margin-right: 2rem;
+        }
+
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <h1 class="mb">Web worker example</h1>
+        <p id="warna"></p>
+    </div>
+
+    <script>
+
+        const worker = new Worker('worker.js');
+        const warna = document.getElementById('warna');
+
+        worker.onmessage = ev => {
+            console.log(ev.data);
+            warna.textContent = ev.data.name;
+            warna.style.backgroundColor = ev.data.code;
+        }
+
+    </script>
+
+</body>
+</html>
